@@ -11,6 +11,7 @@ namespace GEMS_Cloud.Controllers
     [Authorize]
     public class LoginController : Controller
     {
+        public static string Loginname;
         private readonly IJwtAuthenticationManager _jwtauthenticationmanager;
         public LoginController(IJwtAuthenticationManager jwtauthenticationmanager)
         {
@@ -22,12 +23,22 @@ namespace GEMS_Cloud.Controllers
             return View();
         }
         [AllowAnonymous]
-        public IActionResult Authenticate([FromBody] UserCredentials usercred)
+        [HttpPost]
+        public bool Authenticate(UserCredentials usercred)
         {
-            var token = _jwtauthenticationmanager.Authenticate(usercred.Username,usercred.Password);
-            if (token == null)
-                return Unauthorized();  
-            return Ok(token);
+            if(string.IsNullOrEmpty(usercred.Username) || string.IsNullOrEmpty(usercred.Password))
+            {
+                return false;
+            }
+            else
+            {
+                Loginname = usercred.Username;
+                var token = _jwtauthenticationmanager.Authenticate(usercred.Username, usercred.Password);
+                if (token == null)
+                    return false;
+                return true;
+            }
+            //return View();
         }
     }
 }

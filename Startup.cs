@@ -27,7 +27,7 @@ namespace GEMS_Cloud
         {
             services.AddControllersWithViews();
 
-            var key = "myownkey";
+            var key = "Todayisa-Goodday-thatiswhatwewant.";
             services.AddAuthentication(x => { x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             }).AddJwtBearer(x => { x.RequireHttpsMetadata = false;x.SaveToken = true;

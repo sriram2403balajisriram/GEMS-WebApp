@@ -22,6 +22,9 @@ namespace GEMS_Cloud
             string connectionString = configuration.GetConnectionString("DefaultConnection");
             return SqlServerDbContextOptionsExtensions.UseSqlServer(new DbContextOptionsBuilder(), connectionString).Options;
         }
-        public DbSet<UserCredentials> User { get; set; }
+        public DbSet<UserCredentials> userCred { get; set; }
+        public DbSet<Roles> Roles { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<UserDetails> userDetails { get; set; }
     }
 }

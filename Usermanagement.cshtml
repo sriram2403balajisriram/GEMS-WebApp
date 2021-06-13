@@ -1,0 +1,295 @@
+﻿@{
+    Layout = "";
+}
+<!DOCTYPE html>
+<html lang="en">
+<body>
+    <style>
+        .wrapper {
+            display: flex;
+            width: 100%;
+            align-items: stretch;
+        }
+
+        a[data-toggle="collapse"] {
+            position: relative;
+        }
+
+        .dropdown-toggle::after {
+            display: block;
+            position: absolute;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+        }
+
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #fafafa;
+        }
+
+        p {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.1em;
+            font-weight: 300;
+            line-height: 1.7em;
+            color: #999;
+        }
+
+        a, a:hover, a:focus {
+            color: inherit;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        #sidebar {
+            /* don't forget to add all the previously mentioned styles here too */
+            background: #7386D5;
+            color: #fff;
+            transition: all 0.3s;
+        }
+
+            #sidebar .sidebar-header {
+                padding: 20px;
+                background: #6d7fcc;
+            }
+
+            #sidebar ul.components {
+                padding: 20px 0;
+                border-bottom: 1px solid #47748b;
+            }
+
+            #sidebar ul p {
+                color: #fff;
+                padding: 10px;
+            }
+
+            #sidebar ul li a {
+                padding: 10px;
+                font-size: 1.1em;
+                display: block;
+            }
+
+                #sidebar ul li a:hover {
+                    color: #7386D5;
+                    background: #fff;
+                }
+
+            #sidebar ul li.active > a, a[aria-expanded="true"] {
+                color: #fff;
+                background: #6d7fcc;
+            }
+
+        ul ul a {
+            font-size: 0.9em !important;
+            padding-left: 30px !important;
+            background: #6d7fcc;
+        }
+    </style>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+    <script src="~/Javascripts/jsDashboard.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar').toggleClass('active');
+                if (document.getElementById("sidebar").style.display == "none") {
+                    document.getElementById("sidebar").style.display = "block";
+                    document.getElementById("sidebar").style.width = "25%";
+                }
+                else {
+                    document.getElementById("sidebar").style.display = "none";
+                    document.getElementById("sidebar").style.width = "0%";
+                }
+            });
+
+            
+
+        });
+    </script>
+
+    <div class="wrapper">
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <h3>Gleason</h3>
+            </div>
+
+            <ul class="list-unstyled components">
+                <p><img src="~/Images/user.png" style="width: 14px"/>  Balajisriram</p>
+                <li class="active">
+                    <ul class="collapse list-unstyled" id="homeSubmenu">
+                        <li>
+                            <a href="#">Dashboard</a>
+                        </li>
+                        <li>
+                            <a href="#">Applications</a>
+                        </li>
+                        <li>
+                            <a href="#">Data Centers</a>
+                        </li>
+                        <li>
+                            <a href="#">Customers</a>
+                        </li>
+                        <li>
+                            <a href="http://localhost:5000/Dashboard/Usermanagement">User Management</a>
+                        </li>
+                        <li>
+                            <a href="#">Vendors</a>
+                        </li>
+                        <li>
+                            <a href="#">Application Catalog</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <div id="content">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid">
+                    <button type="button" id="sidebarCollapse" class="btn btn-info" style="background-color:lavender">
+                        <i class="fas fa-align-left"></i>
+                        <span><img src="~/Images/menu.png" style="width: 20px" /></span>
+                    </button>
+
+                </div>
+            </nav>
+        </div>
+        <div class="text-center" ng-app="myApp">
+            <div style="color: darkblue; font-weight: bold;">User Management</div>
+            <br />
+            <div style="display:none;" id="divError">
+                <label>
+
+                </label>
+            </div>
+            <br />
+            <div ng-controller="userController">
+                <div>
+                    <span>
+                        <img src="~/Images/refresh.png" ng-click="getUserDetails()" style="width: 25px" />
+                    </span>
+                    <span>
+                        <input type="button" value="Add New User" ng-click="ShowPopup()" />
+                    </span>
+                </div>
+                <br />
+                <div id="divNewUser" style="display:none;">
+                    <div>
+                        <label>Customer</label>
+                        <span style="padding-left:52px">
+                            <select name="Customers" id="drpCustomers" ng-model="Customer">
+                                <option value="1">Gleason</option>
+                            </select>
+                        </span>
+                    </div>
+                    <div>
+                        <label>Username</label>
+                        <span style="padding-left: 49px">
+                            <input type="text" ng-model="Username" />
+                        </span>
+                    </div>
+                    <div>
+                        <label>Firstname</label>
+                        <span style="padding-left: 50px">
+                            <input type="text" ng-model="Firstname" />
+                        </span>
+                    </div>
+                    <div>
+                        <label>Lastname</label>
+                        <span style="padding-left: 52px">
+                            <input type="text" ng-model="Lastname" />
+                        </span>
+                    </div>
+                    <div>
+                        <label>Email</label>
+                        <span style="padding-left: 76px">
+                            <input type="text" ng-model="Email" />
+                        </span>
+                    </div>
+                    <div>
+                        <label>Trial User</label>
+                        <span style="padding-left: 50px">
+                            <input type="checkbox" ng-model="Trialuser" />
+                        </span>
+                    </div>
+                    <div>
+                        <label>Roles</label>
+                        <span>
+                            <span style="padding-left: 50px">
+                                <input type="checkbox" value="1" id="chkGGAdmin" ng-model="GGAdmin" /><label>Global Gleason Admin</label><br />
+                            </span>
+                            <span style="padding-left: 90px">
+                                <input type="checkbox" value="2" id="chkUser" ng-model="GUser" /><label>User</label><br />
+                            </span>
+                            <span style="padding-left: 90px">
+                                <input type="checkbox" value="3" id="chkCAdmin" ng-model="CAdmin" /><label>Customer Admin</label><br />
+                            </span>
+                            <span style="padding-left: 90px">
+                                <input type="checkbox" value="4" id="chkGRS" ng-model="GRS" /><label>Gleason Regional Sales Manager(RSM)</label><br />
+                            </span>
+                            <span style="padding-left: 90px">
+                                <input type="checkbox" value="5" id="chkGIS" ng-model="GIS" /><label>Gleason Internal Sales</label><br />
+                            </span>
+                            <span style="padding-left: 90px">
+                                <input type="checkbox" value="6" id="chkGE" ng-model="GE" /><label>Gleason Engineer / Service Engineer</label>
+                            </span>
+                        </span>
+                    </div>
+                    <br />
+                    <div>
+                        <input type="button" value="Save User" ng-click="Add()" />
+                        <input type="button" value="Close" ng-click="Close()" />
+                    </div>
+                </div>
+                <br />
+                <div style="display: table-header-group;">
+                    <table style="width:100%">
+                        <thead>
+                            <tr>
+                                <th style="width:15%">User</th>
+                                <th style="width:25%">Email Address</th>
+                                <th style="width:10%">Customer</th>
+                                <th style="width:25%">Role</th>
+                                <th style="width:5%">Trial User</th>
+                                <th style="width:20%">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr id="rowDetails" ng-repeat="m in UserList">
+                                <td style="width:15%"><span style="padding-left: 5px;">{{m.firstname}}</span></td>
+                                <td style="width:25%"><span style="padding-left: 14px;">{{m.email}}</span></td>
+                                <td style="width:10%"><span style="padding-left: 5px;">{{m.customer}}</span></td>
+                                <td style="width:25%"><span style="padding-left: 25px;">{{m.role}}</span></td>
+                                <td style="width:5%">
+                                    <span style="padding-left: 7px;">
+                                        <input type="checkbox" ng-disabled="true" ng-checked="m.trialuser" />
+                                    </span>
+                                </td>
+                                <td style="width:20%">
+                                    <span style="padding-left:31px">
+                                        <img src="~/Images/pencil.png" ng-click="ShowEdit(m)" style="width: 14px" />
+                                        <img src="~/Images/delete.png" ng-click="Delete(m)" style="width: 14px" />
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr id="rowEmpty" style="display:none;">
+                                <td>
+                                    <span>
+                                        <img src="~/Images/Iphone-spinner-2.gif" />
+                                    </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+

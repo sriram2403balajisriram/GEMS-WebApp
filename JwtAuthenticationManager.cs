@@ -18,9 +18,9 @@ namespace GEMS_Cloud
         }
         public string Authenticate(string Username, string Password)
         {
-            using (var context=new MyDbContext())
+            using (var context = new MyDbContext())
             {
-                if (!context.User.Any(u => u.Username == Username && u.Password == Password))
+                if (!context.userCred.Any(u => u.Username == Username && u.Password == Password))
                 {
                     return null;
                 }
